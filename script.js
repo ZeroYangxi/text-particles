@@ -1,4 +1,5 @@
 window.addEventListener("load", function () {
+  const textInput = document.getElementById("textInput");
   const canvas = document.getElementById("canvas1");
   const context = canvas.getContext("2d");
 
@@ -63,5 +64,8 @@ window.addEventListener("load", function () {
     });
   }
 
-  wrapText("aaa aaaa lellll ssss hellow world");
+  textInput.addEventListener("keyup", function (text) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    wrapText(text.target.value);
+  });
 });
