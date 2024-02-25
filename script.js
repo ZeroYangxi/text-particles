@@ -19,10 +19,21 @@ window.addEventListener("load", function () {
   context.lineTo(canvas.width, canvas.height / 2); // ending cooridnate
   context.stroke();
 
-  // const text = "Hello Good Morning Yangxi";
-  // const textX = canvas.width / 2;
-  // const textY = canvas.height / 2;
-  context.fillStyle = "yellow";
+  // 设置gradient的起止点（x1, y1, x2, y2)
+  // 还有另一个.createRadialGradient method.
+  const gradient = context.createLinearGradient(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  // addColorStop设置几个颜色的断点。0~1, 30%的是red的。
+  gradient.addColorStop(0.3, "red");
+  gradient.addColorStop(0.5, "fuchsia");
+  gradient.addColorStop(0.7, "yellow");
+  context.fillStyle = gradient;
+
   context.strokeStyle = "white";
   context.font = "100px Helvetica";
   const lineHeight = 100; // space of each line, equals to font size
