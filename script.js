@@ -53,14 +53,15 @@ window.addEventListener("load", function () {
       // 把line放进linesArrays
       linesArray[lineCounter] = line;
     }
+    // 文字块的高度
+    let textBlockHeight = lineHeight * lineCounter;
+    let textY = canvas.height / 2 - textBlockHeight / 2;
+
+    // 每一行都要画在不同的地方
     linesArray.forEach((element, i) => {
-      context.fillText(
-        element,
-        canvas.width / 2,
-        canvas.height / 2 + i * lineHeight
-      );
+      context.fillText(element, canvas.width / 2, textY + i * lineHeight);
     });
   }
 
-  wrapText("aaa aaaa lellll ssss");
+  wrapText("aaa aaaa lellll ssss hellow world");
 });
