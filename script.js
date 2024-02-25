@@ -18,13 +18,49 @@ window.addEventListener("load", function () {
   context.lineTo(canvas.width, canvas.height / 2); // ending cooridnate
   context.stroke();
 
-  const text = "Hello";
-  const textX = canvas.width / 2;
-  const textY = canvas.height / 2;
+  // const text = "Hello Good Morning Yangxi";
+  // const textX = canvas.width / 2;
+  // const textY = canvas.height / 2;
   context.fillStyle = "yellow";
   context.strokeStyle = "white";
   context.font = "100px Helvetica";
+  const lineHeight = 100; // space of each line, equals to font size
   context.textAlign = "center"; // position relative to axis
-  context.fillText(`${text}`, textX, textY); // Text x,y is axis
-  context.strokeText(`${text}`, textX, textY);
+  context.textBaseline = "middle";
+  // context.fillText(`${text}`, textX, textY); // Text x,y is axis
+  // context.strokeText(`${text}`, textX, textY);
+
+  const maxTextWidth = canvas.width * 0.8;
+
+  // warpText break text line
+  function wrapText(text) {
+    let words = text.split(" "); // array contains each word
+    let linesArray = []; // array contains each line
+    let lineCounter = 0; // how many lines
+    let line = "";
+
+    for (let i = 0; i < words.length; i++) {
+      // 看再加一个词的话,line有没有超过长度
+      let testLine = line + words[i] + " ";
+      if (context.measureText(testLine).width > maxTextWidth) {
+        // 如果超了 line清空并加上新的词, 新的词转到下一行
+        line = words[i] + " ";
+        lineCounter++;
+      } else {
+        // 没超过，line = testLine（即加上新词）
+        line = testLine;
+      }
+      // 把line放进linesArrays
+      linesArray[lineCounter] = line;
+    }
+    linesArray.forEach((element, i) => {
+      context.fillText(
+        element,
+        canvas.width / 2,
+        canvas.height / 2 + i * lineHeight
+      );
+    });
+  }
+
+  wrapText("aaa aaaa lellll ssss");
 });
